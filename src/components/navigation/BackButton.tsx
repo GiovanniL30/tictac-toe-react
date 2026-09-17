@@ -1,9 +1,5 @@
-import { Button } from "../ui/Button";
+const BackButton = () => {
+  return <div>BackButton</div>;
+};
 
-interface BackButtonProps {
-  onClick: () => void;
-}
-
-export function BackButton({ onClick }: BackButtonProps) {
-  return <Button onClick={onClick}>Back</Button>;
-}
+export default BackButton;

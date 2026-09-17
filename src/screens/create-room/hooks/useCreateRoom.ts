@@ -1,7 +1,0 @@
-import { useMutation } from "@tanstack/react-query";
-
-import { roomsApi } from "../../../api/roomsApi";
-
-export function useCreateRoom() {
-  return useMutation({ mutationFn: roomsApi.create });
-}

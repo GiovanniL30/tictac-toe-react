@@ -1,9 +1,5 @@
-import type { ButtonHTMLAttributes } from "react";
+const Button = () => {
+  return <div>Button</div>;
+};
 
-export function Button({
-  className = "",
-  type = "button",
-  ...props
-}: ButtonHTMLAttributes<HTMLButtonElement>) {
-  return <button className={className} type={type} {...props} />;
-}
+export default Button;

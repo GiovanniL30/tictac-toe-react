@@ -1,11 +1,5 @@
-interface ToastProps {
-  message: string;
-}
+const Toast = () => {
+  return <div>Toast</div>;
+};
 
-export function Toast({ message }: ToastProps) {
-  return (
-    <div aria-live="polite" role="status">
-      {message}
-    </div>
-  );
-}
+export default Toast;

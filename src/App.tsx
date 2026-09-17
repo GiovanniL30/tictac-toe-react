@@ -1,9 +1,9 @@
-import { CreateRoomScreen } from "./screens/create-room/CreateRoomScreen";
-import { GameScreen } from "./screens/game/GameScreen";
-import { HistoryScreen } from "./screens/history/HistoryScreen";
-import { HomeScreen } from "./screens/home/HomeScreen";
-import { JoinRoomScreen } from "./screens/join-room/JoinRoomScreen";
-import { WaitingRoomScreen } from "./screens/waiting-room/WaitingRoomScreen";
+import CreateRoomScreen from "./features/create-room/CreateRoomScreen";
+import GameScreen from "./features/game/GameScreen";
+import HistoryScreen from "./features/history/HistoryScreen";
+import HomeScreen from "./features/home/HomeScreen";
+import JoinRoomScreen from "./features/join-room/JoinRoomScreen";
+import WaitingRoomScreen from "./features/waiting-room/WaitingRoomScreen";
 import { useAppStore } from "./store/useAppStore";
 
 export default function App() {

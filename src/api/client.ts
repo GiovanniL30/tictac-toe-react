@@ -4,7 +4,7 @@ type RequestOptions = Omit<RequestInit, "body"> & {
   body?: unknown;
 };
 
-function getErrorMessage(data: unknown, response: Response) {
+const getErrorMessage = (data: unknown, response: Response) => {
   if (
     typeof data === "object" &&
     data !== null &&
@@ -15,10 +15,13 @@ function getErrorMessage(data: unknown, response: Response) {
   }
 
   return `API Error: ${response.status} ${response.statusText}`;
-}
+};
 
-function createClient(baseUrl: string) {
-  async function request<T>(path: string, options: RequestOptions = {}) {
+const createClient = (baseUrl: string) => {
+  const request = async <T>(
+    path: string,
+    options: RequestOptions = {},
+  ): Promise<T> => {
     const headers = new Headers(options.headers);
     const hasBody = options.body !== undefined;
 
@@ -41,7 +44,7 @@ function createClient(baseUrl: string) {
     }
 
     return data as T;
-  }
+  };
 
   return {
     get: <T>(path: string, options?: RequestOptions) =>
@@ -49,6 +52,6 @@ function createClient(baseUrl: string) {
     post: <T>(path: string, body?: unknown, options?: RequestOptions) =>
       request<T>(path, { ...options, method: "POST", body }),
   };
-}
+};
 
 export const apiClient = createClient(config.apiUrl);

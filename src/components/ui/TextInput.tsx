@@ -1,8 +1,5 @@
-import type { InputHTMLAttributes } from "react";
+const TextInput = () => {
+  return <div>TextInput</div>;
+};
 
-export function TextInput({
-  className = "",
-  ...props
-}: InputHTMLAttributes<HTMLInputElement>) {
-  return <input className={className} {...props} />;
-}
+export default TextInput;
