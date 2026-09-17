@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { lobbyApi } from "../../../api/lobbyApi";
+import { roomsApi } from "../../../api/roomsApi";
 
 export function useJoinRoom() {
-  return useMutation({ mutationFn: lobbyApi.joinRoom });
+  return useMutation({ mutationFn: roomsApi.join });
 }

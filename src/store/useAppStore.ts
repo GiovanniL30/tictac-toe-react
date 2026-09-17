@@ -16,6 +16,7 @@ interface AppStore {
   session: GameSession | null;
   goTo: (screen: AppScreen) => void;
   startGame: (session: GameSession) => void;
+  setGameId: (gameId: string) => void;
   leaveGame: () => void;
 }
 
@@ -26,6 +27,10 @@ export const useAppStore = create<AppStore>()(
       session: null,
       goTo: (screen) => set({ screen }),
       startGame: (session) => set({ screen: "game", session }),
+      setGameId: (gameId) =>
+        set((state) => ({
+          session: state.session ? { ...state.session, gameId } : null,
+        })),
       leaveGame: () => set({ screen: "home", session: null }),
     }),
     {

@@ -1,7 +1,7 @@
-import type { CellValue } from "../../../types/game";
+import type { BoardCell } from "../../../types/game";
 
 interface BoardProps {
-  cells: CellValue[];
+  cells: BoardCell[];
   disabled?: boolean;
   onCellSelect: (index: number) => void;
 }

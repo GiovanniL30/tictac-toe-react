@@ -3,16 +3,12 @@ function readEnvironmentValue(value: string | undefined, fallback: string) {
 }
 
 export const config = {
-  gameApiUrl: readEnvironmentValue(
-    import.meta.env.VITE_GAME_API_URL,
-    "http://localhost:8080/tictactoe/tictactoeserver",
-  ),
-  recordsApiUrl: readEnvironmentValue(
-    import.meta.env.VITE_RECORDS_API_URL,
-    "http://localhost:8080/tictactoe-webservice/api",
+  apiUrl: readEnvironmentValue(
+    import.meta.env.VITE_API_URL,
+    "http://localhost:8080/api/v1",
   ),
   webSocketUrl: readEnvironmentValue(
     import.meta.env.VITE_WEBSOCKET_URL,
-    "ws://localhost:8080/tictactoe-webservice/ws",
+    "ws://localhost:8080/ws",
   ),
 } as const;

@@ -8,10 +8,10 @@ function getErrorMessage(data: unknown, response: Response) {
   if (
     typeof data === "object" &&
     data !== null &&
-    "msg" in data &&
-    typeof data.msg === "string"
+    "message" in data &&
+    typeof data.message === "string"
   ) {
-    return data.msg;
+    return data.message;
   }
 
   return `API Error: ${response.status} ${response.statusText}`;
@@ -51,5 +51,4 @@ function createClient(baseUrl: string) {
   };
 }
 
-export const gameClient = createClient(config.gameApiUrl);
-export const recordsClient = createClient(config.recordsApiUrl);
+export const apiClient = createClient(config.apiUrl);

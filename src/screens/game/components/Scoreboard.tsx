@@ -8,8 +8,8 @@ export function Scoreboard({ players }: ScoreboardProps) {
   return (
     <div aria-label="Scoreboard">
       {players.map((player) => (
-        <span key={player.playerId}>
-          {player.playerId}: {player.score}
+        <span key={player.playerName}>
+          {player.playerName}: {player.score}
         </span>
       ))}
     </div>
