@@ -163,18 +163,125 @@ Each feature represents one user workflow and keeps its screen, local
 components, and hooks together. This prevents the screen files from becoming
 too long while making related files easy to find.
 
-- `home` is separated into the hero, navigation actions, how-to modal, and idle
-  nudge.
-- `create-room` contains the create form and its API mutation hook.
-- `join-room` contains the join form and its API mutation hook.
-- `waiting-room` contains the room-code card, connection/waiting status, and
-  initial room query.
-- `game` contains the board, scoreboard, player cards, turn display, spectator
-  message, versus intro, result/quit/connection dialogs, and game actions.
-- `history` contains the room/player tabs, room list, player list, game list,
-  move list, loading/empty state, and replay controls.
+```text
+features/
+├── create-room/
+│   ├── components/
+│   │   └── CreateRoomForm.tsx
+│   ├── hooks/
+│   │   └── useCreateRoom.ts
+│   └── CreateRoomScreen.tsx
+├── game/
+│   ├── components/
+│   │   ├── Board.tsx
+│   │   ├── GameResultModal.tsx
+│   │   ├── GameTopBar.tsx
+│   │   ├── PlayerScoreCard.tsx
+│   │   ├── QuitGameModal.tsx
+│   │   ├── ReconnectingModal.tsx
+│   │   ├── Scoreboard.tsx
+│   │   ├── SpectatorBanner.tsx
+│   │   ├── TurnIndicator.tsx
+│   │   └── VersusIntro.tsx
+│   ├── hooks/
+│   │   ├── useAddMove.ts
+│   │   ├── useBoard.ts
+│   │   ├── useGame.ts
+│   │   ├── useLeaveRoom.ts
+│   │   └── usePlayAgain.ts
+│   └── GameScreen.tsx
+├── history/
+│   ├── components/
+│   │   ├── GameList.tsx
+│   │   ├── HistoryState.tsx
+│   │   ├── HistoryTabs.tsx
+│   │   ├── MoveList.tsx
+│   │   ├── PlayerList.tsx
+│   │   ├── ReplayBoard.tsx
+│   │   ├── ReplayControls.tsx
+│   │   └── RoomList.tsx
+│   ├── hooks/
+│   │   └── useHistory.ts
+│   └── HistoryScreen.tsx
+├── home/
+│   ├── components/
+│   │   ├── HomeActions.tsx
+│   │   ├── HomeHero.tsx
+│   │   ├── HowToPlayModal.tsx
+│   │   └── IdleNudge.tsx
+│   └── HomeScreen.tsx
+├── join-room/
+│   ├── components/
+│   │   └── JoinRoomForm.tsx
+│   ├── hooks/
+│   │   └── useJoinRoom.ts
+│   └── JoinRoomScreen.tsx
+└── waiting-room/
+    ├── components/
+    │   ├── RoomCodeCard.tsx
+    │   └── WaitingStatus.tsx
+    ├── hooks/
+    │   └── useRoom.ts
+    └── WaitingRoomScreen.tsx
+```
 
-The main files are still named `HomeScreen`, `GameScreen`, and similar because
+- `create-room`: `CreateRoomScreen` coordinates the workflow,
+  `CreateRoomForm` handles the form UI, and `useCreateRoom` contains the room
+  creation mutation.
+- `game`: `GameScreen` coordinates gameplay. Its components divide the board,
+  top bar, scoreboard, player cards, turn indicator, spectator message, versus
+  introduction, and result/quit/reconnection dialogs. Its hooks separate board
+  and game queries from the add-move, leave-room, and play-again mutations.
+- `history`: `HistoryScreen` coordinates room and player history. Its components
+  handle tabs, room/player/game/move lists, loading or empty states, and replay
+  controls, while `useHistory` contains the related queries.
+- `home`: `HomeScreen` composes `HomeHero`, `HomeActions`, `HowToPlayModal`, and
+  `IdleNudge`. These components separate the landing-page content from its
+  optional interactions.
+- `join-room`: `JoinRoomScreen` combines `JoinRoomForm` with `useJoinRoom`,
+  keeping the form UI separate from the join mutation.
+- `waiting-room`: `WaitingRoomScreen` composes `RoomCodeCard` and
+  `WaitingStatus`, while `useRoom` loads the current room information.
+
+Each feature owns components that are specific to its workflow. Keeping these
+components beside the screen that uses them makes their purpose and ownership
+clear, prevents the shared `components` folder from becoming crowded, and
+allows a feature to change without affecting unrelated parts of the app.
+
+For example, `GameScreen` coordinates the complete game view but delegates
+focused UI responsibilities to `Board`, `GameTopBar`, `Scoreboard`,
+`PlayerScoreCard`, `TurnIndicator`, `SpectatorBanner`, `VersusIntro`, and the
+game modals inside `features/game/components`. Data access and game commands
+are delegated to `useBoard`, `useGame`, `useAddMove`, `useLeaveRoom`, and
+`usePlayAgain`. These files stay in the `game` feature because no other
+workflow needs them. A component such as `Mascot`, however, belongs in the
+top-level `components` folder because it can be reused by multiple features.
+
+The `game` feature is structured as follows:
+
+```text
+game/
+├── components/
+│   ├── Board.tsx
+│   ├── GameResultModal.tsx
+│   ├── GameTopBar.tsx
+│   ├── PlayerScoreCard.tsx
+│   ├── QuitGameModal.tsx
+│   ├── ReconnectingModal.tsx
+│   ├── Scoreboard.tsx
+│   ├── SpectatorBanner.tsx
+│   ├── TurnIndicator.tsx
+│   └── VersusIntro.tsx
+├── hooks/
+│   ├── useAddMove.ts
+│   ├── useBoard.ts
+│   ├── useGame.ts
+│   ├── useLeaveRoom.ts
+│   └── usePlayAgain.ts
+└── GameScreen.tsx
+```
+
+The main files are named `HomeScreen`, `GameScreen`, and similar because
 they represent the full UI shown for a feature. The folder uses the name
 `features` because it owns more than the screen itself.
 
