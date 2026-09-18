@@ -32,6 +32,8 @@ Spring Boot service, including rooms, games, boards, players, and history.
             ├── queryKeys.ts
             ├── roomsApi.ts
         └── assets
+            ├── fonts
+            │   └── sampleFont.txt
             └── icons
                 └── actions
                     ├── quit.svg
@@ -145,8 +147,9 @@ this outside the UI prevents components from calling `fetch` directly.
 
 ### `assets`
 
-Contains the icons and mascot SVGs copied from the vanilla project. The files
-are grouped by purpose and exported through `assets/index.ts`.
+Contains the font assets, icons, and mascot SVGs used by the application. The
+files are grouped by purpose, while reusable icons and mascot images are
+exported through `assets/index.ts`.
 
 ### `components`
 
@@ -203,6 +206,13 @@ and game updates.
 
 This removes the need to poll the backend for room or board changes.
 
-## High Level API Call Architecture
+## High-Level API Call Architecture
 
 ![Project Diagram](./architecture.drawio.svg)
+
+The diagram shows the main REST data flow. `App.tsx` uses the Zustand store to
+select the active feature screen. Screens delegate server operations to custom
+hooks, which use TanStack Query for request state and caching before calling the
+resource-specific API modules. Those modules share `client.ts` to communicate
+with the Spring Boot server. Realtime STOMP events follow the WebSocket flow
+described above and update the same TanStack Query cache.
